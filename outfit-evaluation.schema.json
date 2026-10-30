@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vestara.local/schemas/outfit-evaluation.schema.json",
+  "title": "VESTARA Outfit Evaluation",
+  "type": "object",
+  "required": ["engineVersion", "scoreType", "scores", "weights", "final", "confidence", "missing"],
+  "properties": {
+    "engineVersion": {"type": "string"},
+    "scoreType": {"const": "heuristic"},
+    "scores": {
+      "type": "object",
+      "required": ["color", "silhouette", "formality", "season", "versatility"],
+      "properties": {
+        "color": {"type": "integer", "minimum": 0, "maximum": 100},
+        "silhouette": {"type": "integer", "minimum": 0, "maximum": 100},
+        "formality": {"type": "integer", "minimum": 0, "maximum": 100},
+        "season": {"type": "integer", "minimum": 0, "maximum": 100},
+        "versatility": {"type": "integer", "minimum": 0, "maximum": 100}
+      },
+      "additionalProperties": false
+    },
+    "weights": {
+      "type": "object",
+      "required": ["color", "silhouette", "formality", "season", "versatility"],
+      "properties": {
+        "color": {"const": 0.25},
+        "silhouette": {"const": 0.25},
+        "formality": {"const": 0.2},
+        "season": {"const": 0.2},
+        "versatility": {"const": 0.1}
+      },
+      "additionalProperties": false
+    },
+    "final": {"type": "integer", "minimum": 0, "maximum": 100},
+    "confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+    "missing": {"type": "array", "items": {"type": "string"}},
+    "explanations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

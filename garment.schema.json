@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vestara.local/schemas/garment.schema.json",
+  "title": "VESTARA Garment Record",
+  "type": "object",
+  "required": ["id", "name", "cat", "color", "occasion", "img"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "cat": {"enum": ["camisa", "pantalon", "chaqueta", "bolera", "zapatos", "accesorio", "otro"]},
+    "color": {"enum": ["neutro", "negro", "blanco", "crema", "beige", "gris", "azul", "marino", "verde", "oliva", "marron", "camel", "rojo", "burdeo", "rosa", "amarillo", "naranja", "morado", "metalico"]},
+    "material": {"type": ["string", "null"], "description": "Probable o declarado; no equivale a composición certificada."},
+    "silhouette": {"type": ["string", "null"], "enum": ["recta", "slim", "relaxed", "oversize", "estructurada", null]},
+    "formality": {"type": ["integer", "null"], "minimum": 1, "maximum": 5},
+    "season": {"type": ["array", "null"], "items": {"enum": ["spring", "summer", "autumn", "winter"]}, "uniqueItems": true},
+    "occasion": {"type": "array", "items": {"enum": ["casual", "trabajo", "noche", "sport", "formal"]}},
+    "visualAnalysis": {"type": ["object", "null"], "properties": {
+      "provider": {"type": "string"},
+      "analyzedAt": {"type": "string", "format": "date-time"},
+      "uncertain": {"type": "array", "items": {"type": "string"}},
+      "confidence": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}}
+    }, "additionalProperties": true},
+    "attributeSource": {"type": "object", "additionalProperties": {"enum": ["user_confirmed", "user_entered", "ai_suggested", "unknown"]}},
+    "img": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}
